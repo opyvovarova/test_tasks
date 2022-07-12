@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Task 1</title>
+  </head>
+  <body>
+    <script>
+
+      // Given a sentence with multiple lowercase words separated by spaces,
+      // write a Javascript code that finds the longest word in the sentence.
+      // If there are multiple words of the same length,
+      //choose one that has the highest number of vowels.
+      // Ignore any character in the sentence that is not a letter or a space.
+      // Find the most efficient way to achieve this.
+
+      let str = 'Smart people learn from everything and everyone, average people from their experience, stupid people already, have all the answers';
+
+      function stringToArray(str) {
+      str = str.replace(/[^a-zа-яё0-9\s]/gi, ' ');
+      let allWords = str.toLowerCase().split(' ').sort(function(a, b) { 
+        return b.length - a.length; 
+      });
+      return allWords;
+    }
+
+
+    function findLoggestWords_in_list(allWords) {
+      let longestWordArr = [];
+      let firstElementArr = allWords[0].length;
+      for (i=0; i<allWords.length; i++){
+        if (firstElementArr - allWords[i].length == 0) {
+          longestWordArr.push(allWords[i]);
+        }
+      }
+      return longestWordArr;
+    }
+
+
+    const findVowels = str => {
+      let count = 0;
+      const vowels = [ 'a', 'e', 'i', 'o', 'u'];
+
+      for(let char of  str.toLowerCase()) {
+        if(vowels.includes(char)) {
+          count++;
+        }
+      }
+      return count;
+    }
+
+  
+    function result(arr) {
+      let finalArr = [];
+      for (j=0; j<arr.length; j++) {
+        finalArr[j] = findVowels(arr[j]);
+      }
+
+      arr.sort(function(a, b) { 
+        return findVowels(b) - findVowels(a);
+    });
+    return arr;
+  }
+
+    stringToArray(str); 
+    findLoggestWords_in_list(stringToArray(str));
+    let resultWords = result(findLoggestWords_in_list(stringToArray(str)));
+
+
+    console.log(resultWords[0]);
+
+
+    </script>
+  </body>
+</html>
